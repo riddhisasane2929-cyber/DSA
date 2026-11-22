@@ -1,0 +1,37 @@
+
+class Queue:
+    def __init__(self):
+        self.queue = []
+        
+    # Insert customer
+    def enqueue(self, customer):
+        self.queue.append(customer)
+        print(customer, "joined the queue")
+
+    # Remove customer
+    def dequeue(self):
+        if len(self.queue) == 0:
+            print("Queue is Empty")
+        else:
+            print("Customer served:", self.queue.pop(0))
+
+    # Display queue
+    def display(self):
+        if len(self.queue) == 0:
+            print("Queue is Empty")
+        else:
+            print("Queue:", self.queue)
+
+
+# Main program
+q = Queue()
+
+q.enqueue("Customer 1")
+q.enqueue("Customer 2")
+q.enqueue("Customer 3")
+
+q.display()
+
+q.dequeue()
+
+q.display()

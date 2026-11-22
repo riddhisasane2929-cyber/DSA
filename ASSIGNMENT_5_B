@@ -1,0 +1,88 @@
+
+class Node:
+    def __init__(self, roll, name):
+        self.roll = roll
+        self.name = name
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    # Insert student record
+    def insert(self, roll, name):
+        new_node = Node(roll, name)
+
+        if self.root is None:
+            self.root = new_node
+            return
+
+        temp = self.root
+
+        while True:
+            if roll < temp.roll:
+                if temp.left is None:
+                    temp.left = new_node
+                    break
+                temp = temp.left
+            elif roll > temp.roll:
+                if temp.right is None:
+                    temp.right = new_node
+                    break
+                temp = temp.right
+            else:
+                print("Roll number already exists")
+                return
+
+    # Non-recursive Inorder
+    def inorder(self):
+        stack = []
+        temp = self.root
+
+        print("\nInorder Traversal:")
+
+        while temp or stack:
+            while temp:
+                stack.append(temp)
+                temp = temp.left
+
+            temp = stack.pop()
+            print(temp.roll, "-", temp.name)
+            temp = temp.right
+
+    # Non-recursive Preorder
+    def preorder(self):
+        if self.root is None:
+            print("Tree is empty")
+            return
+
+        stack = [self.root]
+
+        print("\nPreorder Traversal:")
+
+        while stack:
+            temp = stack.pop()
+            print(temp.roll, "-", temp.name)
+
+            if temp.right:
+                stack.append(temp.right)
+
+            if temp.left:
+                stack.append(temp.left)
+
+
+# Main Program
+tree = BST()
+
+tree.insert(105, "Amit")
+tree.insert(102, "Rahul")
+tree.insert(108, "Priya")
+tree.insert(101, "Sneha")
+tree.insert(104, "Riya")
+tree.insert(107, "Neha")
+tree.insert(110, "Arjun")
+
+tree.inorder()
+tree.preorder()

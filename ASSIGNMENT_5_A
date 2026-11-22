@@ -1,0 +1,83 @@
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    # Insert node into BST
+    def insert(self, data):
+        new_node = Node(data)
+
+        if self.root is None:
+            self.root = new_node
+            return
+
+        temp = self.root
+
+        while True:
+            if data < temp.data:
+                if temp.left is None:
+                    temp.left = new_node
+                    break
+                temp = temp.left
+            else:
+                if temp.right is None:
+                    temp.right = new_node
+                    break
+                temp = temp.right
+
+    # Non-recursive Inorder Traversal
+    def inorder(self):
+        stack = []
+        temp = self.root
+
+        print("Inorder Traversal:")
+
+        while temp or stack:
+            while temp:
+                stack.append(temp)
+                temp = temp.left
+
+            temp = stack.pop()
+            print(temp.data, end=" ")
+            temp = temp.right
+
+    # Non-recursive Preorder Traversal
+    def preorder(self):
+        if self.root is None:
+            return
+
+        stack = [self.root]
+
+        print("\nPreorder Traversal:")
+
+        while stack:
+            temp = stack.pop()
+            print(temp.data, end=" ")
+
+            if temp.right:
+                stack.append(temp.right)
+
+            if temp.left:
+                stack.append(temp.left)
+
+
+# Main Program
+tree = BST()
+
+tree.insert(50)
+tree.insert(30)
+tree.insert(70)
+tree.insert(20)
+tree.insert(40)
+tree.insert(60)
+tree.insert(80)
+
+tree.inorder()
+tree.preorder()

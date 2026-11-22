@@ -1,0 +1,38 @@
+
+# Hash Table using Linear Probing Without Replacement
+
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = [-1] * size
+
+    def insert(self, key):
+        index = key % self.size
+
+        # Check for collision
+        if self.table[index] == -1:
+            self.table[index] = key
+        else:
+            # Linear probing
+            while self.table[index] != -1:
+                index = (index + 1) % self.size
+
+            self.table[index] = key
+
+    def display(self):
+        print("\nHash Table:")
+        for i in range(self.size):
+            print(i, ":", self.table[i])
+
+
+# Create hash table
+ht = HashTable(10)
+
+# Insert elements
+keys = [23, 43, 13, 27, 37, 33]
+
+for key in keys:
+    ht.insert(key)
+
+# Display hash table
+ht.display()

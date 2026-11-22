@@ -1,0 +1,114 @@
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    # Insert employee ID
+    def insert(self, data):
+        new_node = Node(data)
+
+        if self.root is None:
+            self.root = new_node
+            return
+
+        temp = self.root
+
+        while True:
+            if data < temp.data:
+                if temp.left is None:
+                    temp.left = new_node
+                    break
+                temp = temp.left
+
+            elif data > temp.data:
+                if temp.right is None:
+                    temp.right = new_node
+                    break
+                temp = temp.right
+            else:
+                return
+
+    # Display tree level-wise
+    def level_order(self, root):
+        if root is None:
+            return
+
+        queue = [root]
+
+        while queue:
+            temp = queue.pop(0)
+            print(temp.data, end=" ")
+
+            if temp.left:
+                queue.append(temp.left)
+
+            if temp.right:
+                queue.append(temp.right)
+
+        print()
+
+    # Find height
+    def height(self, root):
+        if root is None:
+            return 0
+
+        return 1 + max(self.height(root.left),
+                       self.height(root.right))
+
+    # Find leaf nodes
+    def leaf_nodes(self, root):
+        if root is None:
+            return
+
+        if root.left is None and root.right is None:
+            print(root.data, end=" ")
+
+        self.leaf_nodes(root.left)
+        self.leaf_nodes(root.right)
+
+    # Copy original BST
+    def copy_tree(self, root):
+        if root is None:
+            return None
+
+        new_node = Node(root.data)
+        new_node.left = self.copy_tree(root.left)
+        new_node.right = self.copy_tree(root.right)
+
+        return new_node
+
+
+# Main Program
+tree = BST()
+
+# Employee IDs
+ids = [100, 50, 150, 30, 70, 120, 180]
+
+for emp_id in ids:
+    tree.insert(emp_id)
+
+# Original BST
+print("Original Employee BST:")
+tree.level_order(tree.root)
+
+# Create new BST
+new_tree = BST()
+new_tree.root = new_tree.copy_tree(tree.root)
+
+print("New Employee BST:")
+new_tree.level_order(new_tree.root)
+
+# Find height
+print("Height of BST:", tree.height(tree.root))
+
+# Display leaf nodes
+print("Leaf Employee IDs:")
+tree.leaf_nodes(tree.root)
+print()

@@ -1,0 +1,47 @@
+
+# Smart Parking Slot Allocation System
+# Using Hash Table and Linear Probing
+
+class ParkingSystem:
+    def __init__(self, size):
+        self.size = size
+        self.slots = [None] * size
+
+    # Hash function
+    def hash_function(self, vehicle):
+        return sum(ord(ch) for ch in vehicle) % self.size
+
+    # Allocate parking slot
+    def park_vehicle(self, vehicle):
+        index = self.hash_function(vehicle)
+        start = index
+
+        while self.slots[index] is not None:
+            index = (index + 1) % self.size
+
+            if index == start:
+                print("Parking is Full!")
+                return
+
+        self.slots[index] = vehicle
+        print(vehicle, "parked at slot", index)
+
+    # Display parking slots
+    def display(self):
+        print("\nParking Slot Status:")
+        for i in range(self.size):
+            print("Slot", i, ":", self.slots[i])
+
+
+# Create parking system
+parking = ParkingSystem(10)
+
+# Park vehicles
+parking.park_vehicle("CAR101")
+parking.park_vehicle("CAR111")
+parking.park_vehicle("BIKE101")
+parking.park_vehicle("CAR121")
+parking.park_vehicle("BIKE201")
+
+# Display parking status
+parking.display()

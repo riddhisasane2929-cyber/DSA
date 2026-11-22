@@ -1,0 +1,43 @@
+
+class BookStack:
+    def __init__(self):
+        self.stack = []
+
+    # Add a returned book
+    def push(self, book):
+        self.stack.append(book)
+        print(book, "added to stack")
+
+    # Remove the top book
+    def pop(self):
+        if not self.stack:
+            print("Stack Underflow! No books available")
+        else:
+            print("Book taken for shelving:", self.stack.pop())
+
+    # Display top book
+    def peek(self):
+        if not self.stack:
+            print("Stack is empty")
+        else:
+            print("Top book:", self.stack[-1])
+
+    # Display all books
+    def display(self):
+        if not self.stack:
+            print("Stack is empty")
+        else:
+            print("Returned books:", self.stack[::-1])
+
+
+# Main program
+s = BookStack()
+
+s.push("Python")
+s.push("Java")
+s.push("DBMS")
+
+s.display()
+s.peek()
+s.pop()
+s.display()
